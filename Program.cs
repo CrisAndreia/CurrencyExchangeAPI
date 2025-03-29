@@ -27,7 +27,7 @@ builder.Services.AddSwaggerGen(c =>
     {
         Title = "Currency Exchange API",
         Version = "v1",
-        Description = "aAPI to manage wallets and exchanging rates"
+        Description = "API to manage wallets and exchanging rates"
     });
 });
 
