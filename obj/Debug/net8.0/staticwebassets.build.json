@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "2bIdJYSDnLoBguM0GRgTwQiiMwvms2Iy67+J+lacnic=",
+  "Source": "CurrencyExchangeAPI",
+  "BasePath": "_content/CurrencyExchangeAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
