@@ -156,3 +156,4 @@
 /Users/crisrodrigues/CurrencyExchangeAPI/obj/Debug/net8.0/CurrencyExchangeAPI.pdb
 /Users/crisrodrigues/CurrencyExchangeAPI/obj/Debug/net8.0/CurrencyExchangeAPI.genruntimeconfig.cache
 /Users/crisrodrigues/CurrencyExchangeAPI/obj/Debug/net8.0/ref/CurrencyExchangeAPI.dll
+/Users/crisrodrigues/CurrencyExchangeAPI/obj/Debug/net8.0/CurrencyExchangeAPI.sourcelink.json

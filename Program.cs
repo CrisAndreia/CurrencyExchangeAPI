@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using CurrencyExchangeAPI.Data;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +21,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 //Adding necessary services
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c => 
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Currency Exchange API",
+        Version = "v1",
+        Description = "aAPI to manage wallets and exchanging rates"
+    });
+});
 
 var app = builder.Build();
 
@@ -28,7 +37,11 @@ var app = builder.Build();
 if(app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Currency Exchange API v1");
+        c.RoutePrefix = string.Empty;
+    });
 }
 
 app.UseHttpsRedirection();
