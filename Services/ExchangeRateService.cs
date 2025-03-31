@@ -11,21 +11,36 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Logging;
+using CurrencyExchangeAPI.Repositories;
 
 namespace CurrencyExchangeAPI.Services
 {
-    public class ExchangeRateService 
+    public class ExchangeRateService : IExchangeRateService
     {
         private readonly ILogger<ExchangeRateService> _logger;
-        private readonly ApplicationDbContext _context;
+        private readonly IExchangeRateRepository _exchangeRateRepository;
         private readonly HttpClient _httpClient;
         private const string ECB_API_URL = "https://v6.exchangerate-api.com/v6/8aa51a89e70ce8f2bd498467/latest/USD";
-
-        public ExchangeRateService(ApplicationDbContext context, HttpClient httpClient, ILogger<ExchangeRateService> logger)
+        public ExchangeRateService(IExchangeRateRepository exchangeRateRepository, HttpClient httpClient, ILogger<ExchangeRateService> logger)
         {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _exchangeRateRepository = exchangeRateRepository;
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
             _logger = logger;
+        }
+
+        public async Task<IEnumerable<ExchangeRate>> GetExchangeRatesAsync()
+        {
+            return await _exchangeRateRepository.GetAllAsync();
+        }
+
+        public async Task<ExchangeRate> GetExchangeRateByCurrencyAsync(string currency)
+        {
+            return await _exchangeRateRepository.GetByCurrencyAsync(currency);
+        }
+
+        public async Task SaveExchangeRateAsync(ExchangeRate exchangeRate)
+        {
+            await _exchangeRateRepository.AddAsync(exchangeRate);
         }
 
         public async Task<List<ExchangeRate>> FetchAndStoreExchangeRatesAsync()
@@ -34,7 +49,7 @@ namespace CurrencyExchangeAPI.Services
 
             var ratesData = JsonConvert.DeserializeObject<ExchangeRatesResponse>(response);
 
-             if (ratesData?.Result != "success")
+            if (ratesData?.Result != "success")
             {
                 throw new InvalidOperationException($"API response error: {ratesData?.Result}");
             }
@@ -45,8 +60,8 @@ namespace CurrencyExchangeAPI.Services
             }
             
             var exchangeRates = new List<ExchangeRate>();
-            
-            foreach(var (currency, rate) in ratesData.ConversionRates)
+
+            foreach (var (currency, rate) in ratesData.ConversionRates)
             {
                 exchangeRates.Add(new ExchangeRate
                 {
@@ -57,14 +72,13 @@ namespace CurrencyExchangeAPI.Services
                 });
             }
 
-            if(exchangeRates == null || !exchangeRates.Any())
+            if (exchangeRates == null || !exchangeRates.Any())
             {
                 throw new Exception("No exchange rates to store.");
             }
 
-
-            await _context.ExchangeRates.AddRangeAsync(exchangeRates);
-            await _context.SaveChangesAsync();
+            // Adding to the db through the repository
+            await _exchangeRateRepository.AddRangeAsync(exchangeRates);
 
             return exchangeRates;
         }

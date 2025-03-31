@@ -10,9 +10,9 @@ namespace CurrencyExchangeAPI.Controllers
     [ApiController]
     public class ExchangeRateController : ControllerBase
     {
-        private readonly ExchangeRateService _exchangeRateService;
+        private readonly IExchangeRateService _exchangeRateService;
 
-        public ExchangeRateController(ExchangeRateService exchangeRateService)
+        public ExchangeRateController(IExchangeRateService exchangeRateService)
         {
             _exchangeRateService = exchangeRateService;
         }
@@ -20,6 +20,7 @@ namespace CurrencyExchangeAPI.Controllers
         [HttpGet("fetch")]
         public async Task<ActionResult<List<ExchangeRate>>> FetchRates()
         {
+            //var rates = await _exchangeRateService.FetchAndStoreExchangeRatesAsync();
             var rates = await _exchangeRateService.FetchAndStoreExchangeRatesAsync();
             return Ok(rates);
         }

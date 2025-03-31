@@ -20,13 +20,37 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+//Repositories and services
+builder.Services.AddScoped<IExchangeRateRepository, ExchangeRateRepository>();
+builder.Services.AddScoped<IExchangeRateService, ExchangeRateService>();
+builder.Services.AddScoped<IWalletRepository, WalletRepository>();
+builder.Services.AddScoped<IWalletService, WalletService>();
+
+//HttpClient
+builder.Services.AddHttpClient<IExchangeRateService, ExchangeRateService>();
+
 //Adding necessary services
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddHttpClient<ExchangeRateService>();
-builder.Services.AddScoped<ExchangeRateService>();
-builder.Services.AddScoped<IWalletService, WalletService>();
-builder.Services.AddScoped<IWalletRepository, WalletRepository>();
+
+/*builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
+app.UseHttpsRedirection();
+app.UseAuthorization();
+app.MapControllers();
+
+app.Run();*/
+
 builder.Services.AddSwaggerGen(c => 
 {
     c.SwaggerDoc("v1", new OpenApiInfo
@@ -53,7 +77,7 @@ if(app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
-//app.UseRouting();
+app.UseRouting();
 
 //Start application
 app.Run();
