@@ -1,11 +1,3 @@
-/Users/crisrodrigues/CurrencyExchangeAPI/obj/Debug/net8.0/CurrencyExchangeAPI.csproj.AssemblyReference.cache
-/Users/crisrodrigues/CurrencyExchangeAPI/obj/Debug/net8.0/CurrencyExchangeAPI.GeneratedMSBuildEditorConfig.editorconfig
-/Users/crisrodrigues/CurrencyExchangeAPI/obj/Debug/net8.0/CurrencyExchangeAPI.AssemblyInfoInputs.cache
-/Users/crisrodrigues/CurrencyExchangeAPI/obj/Debug/net8.0/CurrencyExchangeAPI.AssemblyInfo.cs
-/Users/crisrodrigues/CurrencyExchangeAPI/obj/Debug/net8.0/CurrencyExchangeAPI.csproj.CoreCompileInputs.cache
-/Users/crisrodrigues/CurrencyExchangeAPI/obj/Debug/net8.0/CurrencyExchangeAPI.MvcApplicationPartsAssemblyInfo.cs
-/Users/crisrodrigues/CurrencyExchangeAPI/obj/Debug/net8.0/CurrencyExchangeAPI.MvcApplicationPartsAssemblyInfo.cache
-/Users/crisrodrigues/CurrencyExchangeAPI/obj/Debug/net8.0/CurrencyExchangeAPI.sourcelink.json
 /Users/crisrodrigues/CurrencyExchangeAPI/bin/Debug/net8.0/appsettings.Development.json
 /Users/crisrodrigues/CurrencyExchangeAPI/bin/Debug/net8.0/appsettings.json
 /Users/crisrodrigues/CurrencyExchangeAPI/bin/Debug/net8.0/CurrencyExchangeAPI
@@ -144,6 +136,14 @@
 /Users/crisrodrigues/CurrencyExchangeAPI/bin/Debug/net8.0/runtimes/win-x64/native/e_sqlite3.dll
 /Users/crisrodrigues/CurrencyExchangeAPI/bin/Debug/net8.0/runtimes/win-x86/native/e_sqlite3.dll
 /Users/crisrodrigues/CurrencyExchangeAPI/bin/Debug/net8.0/runtimes/browser/lib/net8.0/System.Text.Encodings.Web.dll
+/Users/crisrodrigues/CurrencyExchangeAPI/obj/Debug/net8.0/CurrencyExchangeAPI.csproj.AssemblyReference.cache
+/Users/crisrodrigues/CurrencyExchangeAPI/obj/Debug/net8.0/CurrencyExchangeAPI.GeneratedMSBuildEditorConfig.editorconfig
+/Users/crisrodrigues/CurrencyExchangeAPI/obj/Debug/net8.0/CurrencyExchangeAPI.AssemblyInfoInputs.cache
+/Users/crisrodrigues/CurrencyExchangeAPI/obj/Debug/net8.0/CurrencyExchangeAPI.AssemblyInfo.cs
+/Users/crisrodrigues/CurrencyExchangeAPI/obj/Debug/net8.0/CurrencyExchangeAPI.csproj.CoreCompileInputs.cache
+/Users/crisrodrigues/CurrencyExchangeAPI/obj/Debug/net8.0/CurrencyExchangeAPI.MvcApplicationPartsAssemblyInfo.cs
+/Users/crisrodrigues/CurrencyExchangeAPI/obj/Debug/net8.0/CurrencyExchangeAPI.MvcApplicationPartsAssemblyInfo.cache
+/Users/crisrodrigues/CurrencyExchangeAPI/obj/Debug/net8.0/CurrencyExchangeAPI.sourcelink.json
 /Users/crisrodrigues/CurrencyExchangeAPI/obj/Debug/net8.0/staticwebassets.build.json
 /Users/crisrodrigues/CurrencyExchangeAPI/obj/Debug/net8.0/staticwebassets.development.json
 /Users/crisrodrigues/CurrencyExchangeAPI/obj/Debug/net8.0/staticwebassets/msbuild.CurrencyExchangeAPI.Microsoft.AspNetCore.StaticWebAssets.props

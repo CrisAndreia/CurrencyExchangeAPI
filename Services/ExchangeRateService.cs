@@ -14,7 +14,7 @@ using Microsoft.Extensions.Logging;
 
 namespace CurrencyExchangeAPI.Services
 {
-    public class ExchangeRateService
+    public class ExchangeRateService 
     {
         private readonly ILogger<ExchangeRateService> _logger;
         private readonly ApplicationDbContext _context;

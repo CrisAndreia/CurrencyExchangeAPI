@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using CurrencyExchangeAPI.Data;
 using Microsoft.OpenApi.Models;
 using CurrencyExchangeAPI.Services;
+using CurrencyExchangeAPI.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHttpClient<ExchangeRateService>();
 builder.Services.AddScoped<ExchangeRateService>();
+builder.Services.AddScoped<IWalletService, WalletService>();
+builder.Services.AddScoped<IWalletRepository, WalletRepository>();
 builder.Services.AddSwaggerGen(c => 
 {
     c.SwaggerDoc("v1", new OpenApiInfo
@@ -54,21 +57,3 @@ app.MapControllers();
 
 //Start application
 app.Run();
-
-/*namespace CurrencyExchangeAPI
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
-
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
-    }
-}*/
