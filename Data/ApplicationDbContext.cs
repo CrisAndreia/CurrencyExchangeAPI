@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using CurrencyExchangeAPI.Models;
 
 namespace CurrencyExchangeAPI.Data
 {
@@ -9,7 +10,6 @@ namespace CurrencyExchangeAPI.Data
         }
         public DbSet<Wallet> Wallets { get; set; }
         public DbSet<ExchangeRate> ExchangeRates { get; set; }
-
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
