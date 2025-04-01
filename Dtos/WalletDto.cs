@@ -1,8 +1,14 @@
 using System;
-public class WalletDto
+using System.Collections.Generic;
+using CurrencyExchangeAPI.Dto;
+
+namespace CurrencyExchangeAPI.Dto
 {
-    public int Id { get; set; }
-    public string Currency { get; set; }
-    public decimal Balance { get; set; }
-    public DateTime CreateAt { get; set; } = DateTime.UtcNow;
+    public class WalletDto
+    {
+        public int Id { get; set; }
+        public string UserId{ get; set; }
+        public List<WalletBalanceDto> Balances { get; set; }
+        public DateTime CreateAt { get; set; } = DateTime.UtcNow;
+    }
 }

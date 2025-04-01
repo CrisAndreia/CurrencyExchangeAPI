@@ -10,5 +10,6 @@ namespace CurrencyExchangeAPI.Repositories
         Task<ExchangeRate> GetByCurrencyAsync(string currency);
         Task AddAsync(ExchangeRate exchangeRate);
         Task AddRangeAsync(IEnumerable<ExchangeRate> exchangeRates);
+        
     }
 }

@@ -22,12 +22,12 @@ namespace CurrencyExchangeAPI.Repositories
 
         public async Task<ExchangeRate> GetByCurrencyAsync(string currency)
         {
-            return await _context.ExchangeRates.FirstOrDefaultAsync(e => e.BaseCurrency == currency);
+            return await _context.ExchangeRates.FirstOrDefaultAsync(e => e.TargetCurrency == currency);
         }
 
         public async Task AddAsync(ExchangeRate exchangeRate)
         {
-            _context.ExchangeRates.Add(exchangeRate);
+            await _context.ExchangeRates.AddAsync(exchangeRate);
             await _context.SaveChangesAsync();
         }
 

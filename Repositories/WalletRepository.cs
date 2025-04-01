@@ -25,7 +25,8 @@ namespace CurrencyExchangeAPI.Repositories
 
         public async Task<Wallet> GetByIdAsync(int id)
         {
-            return await _context.Wallets.FindAsync(id);
+            //return await _context.Wallets.FindAsync(id);
+            return await _context.Wallets.Include(w => w.Balances).FirstOrDefaultAsync(w => w.Id == id);
         }
 
         public async Task<Wallet> CreateAsync(Wallet wallet)

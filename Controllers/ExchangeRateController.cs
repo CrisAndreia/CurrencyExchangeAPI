@@ -20,7 +20,6 @@ namespace CurrencyExchangeAPI.Controllers
         [HttpGet("fetch")]
         public async Task<ActionResult<List<ExchangeRate>>> FetchRates()
         {
-            //var rates = await _exchangeRateService.FetchAndStoreExchangeRatesAsync();
             var rates = await _exchangeRateService.FetchAndStoreExchangeRatesAsync();
             return Ok(rates);
         }
