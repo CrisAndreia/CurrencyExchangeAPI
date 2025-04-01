@@ -16,21 +16,20 @@ using CurrencyExchangeAPI.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//Adding DbContext
+// Adding DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-//Repositories and services
+// Repositories and services
 builder.Services.AddScoped<IExchangeRateRepository, ExchangeRateRepository>();
 builder.Services.AddScoped<IExchangeRateService, ExchangeRateService>();
 builder.Services.AddScoped<IWalletRepository, WalletRepository>();
 builder.Services.AddScoped<IWalletService, WalletService>();
 
-//HttpClient
+// HttpClient
 builder.Services.AddHttpClient<IExchangeRateService, ExchangeRateService>();
 
-//Adding necessary services
-//builder.Services.AddControllers();
+// Adding necessary services
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -50,7 +49,7 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-//Pipeline request configuration
+// Pipeline request configuration
 if(app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -66,5 +65,5 @@ app.UseAuthorization();
 app.MapControllers();
 app.UseRouting();
 
-//Start application
+// Start application
 app.Run();
