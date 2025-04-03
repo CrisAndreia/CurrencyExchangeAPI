@@ -2,15 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-//using System.ServiceModel.Syndication;
-//using System.Xml;
 using System.Threading.Tasks;
 using System.Net.Http;
 using CurrencyExchangeAPI.Models;
-//using CurrencyExchangeAPI.Services; 
 using System.Xml.Linq;
 using Microsoft.Extensions.Logging;
-//using System.Xml.XPath;
 
 namespace CurrencyExchangeAPI.Services
 {

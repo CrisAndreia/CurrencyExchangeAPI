@@ -1,13 +1,10 @@
 using System;
 using System.Threading.Tasks;
-//using ECBGateway;
-//using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using Microsoft.Extensions.Logging;
 using Quartz;
 using CurrencyExchangeAPI.Services;
-//using CurrencyExchangeAPI.Data;
-using System.Linq;
-//using System.Globalization;
-using Microsoft.Extensions.Logging;
+
 
 public class RateUpdateJob : IJob
 {
