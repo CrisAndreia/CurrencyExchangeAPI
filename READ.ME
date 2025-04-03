@@ -1,0 +1,144 @@
+# Currency Exchange API
+
+A RESTful API for fetching and converting currency exchange rates, primarily using European Central Bank (ECB) data.
+
+## Features
+
+- Fetch latest exchange rates from ECB
+- Store rates in database
+- Convert between currencies
+- Get specific exchange rates
+- Historical rate tracking (by date)
+
+## Technologies
+
+- ASP.NET Core
+- Entity Framework Core
+- SQLite (or your database)
+- HttpClient for ECB API calls
+- XML Serialization
+- Swagger/OpenAPI documentation
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/currency-exchange-api.git
+   cd currency-exchange-api
+Restore dependencies:
+bash
+Copy
+dotnet restore
+Configure the database:
+Update connection string in appsettings.json
+Apply migrations:
+bash
+Copy
+dotnet ef database update
+Run the application:
+bash
+Copy
+dotnet run
+API Endpoints
+
+Exchange Rates
+
+GET /api/exchangerate/fetch
+Fetch latest rates from ECB and store in database
+Response: List of stored exchange rates
+GET /api/exchangerate
+Get all stored exchange rates
+Response: List of exchange rates
+GET /api/exchangerate/{currency}
+Get specific exchange rate by currency code
+Response: Exchange rate details
+Conversion
+
+GET /api/exchangerate/convert?from={currency}&to={currency}&amount={decimal}
+Convert between currencies
+Response: Converted amount
+GET /api/exchangerate/rate/{targetCurrency}
+Get latest rate for specific currency
+Response: Exchange rate value
+Usage Example
+
+First fetch the latest rates:
+bash
+Copy
+curl -X GET "https://yourapi.com/api/exchangerate/fetch"
+Then convert currencies:
+bash
+Copy
+curl -X GET "https://yourapi.com/api/exchangerate/convert?from=EUR&to=USD&amount=100"
+Or get specific rate:
+bash
+Copy
+curl -X GET "https://yourapi.com/api/exchangerate/rate/USD"
+Data Structure
+
+Exchange rates are stored with:
+
+BaseCurrency (always EUR)
+TargetCurrency (3-letter ISO code)
+Rate (conversion rate)
+DateReceived (timestamp)
+Configuration
+
+Update appsettings.json with your preferences:
+
+json
+Copy
+{
+  "ECBApi": {
+    "BaseUrl": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml"
+  },
+  "ConnectionStrings": {
+    "DefaultConnection": "Data Source=currency.db"
+  }
+}
+Development
+
+To run in development mode:
+
+bash
+Copy
+dotnet watch run
+Access Swagger UI at:
+https://localhost:5001/swagger
+
+Testing
+
+Run unit tests:
+
+bash
+Copy
+dotnet test
+Deployment
+
+Publish the application:
+bash
+Copy
+dotnet publish -c Release -o ./publish
+Deploy the publish folder to your hosting environment.
+License
+
+MIT License
+
+Copy
+
+Key features of this README:
+
+1. **Clear Structure** - Organized sections for easy navigation
+2. **Comprehensive Documentation** - Covers all API endpoints
+3. **Usage Examples** - Ready-to-use curl commands
+4. **Technical Details** - Lists all important technologies
+5. **Deployment Guide** - Steps to get the app running
+6. **Configuration** - Documents the config file structure
+
+You may want to customize:
+- The deployment section based on your hosting platform
+- Add any additional features specific to your implementation
+- Include screenshots if you have a UI component
+- Add contribution guidelines if it's an open source project
+
+The README provides everything a developer would need to understand, install, and use your Currency Exchange API.
