@@ -10,5 +10,14 @@ namespace CurrencyExchangeAPI.Data
         }
         public DbSet<Wallet> Wallets { get; set; }
         public DbSet<ExchangeRate> ExchangeRates { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ExchangeRate>()
+            .Property(e => e.Id).ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Wallet>()
+            .Property(w => w.Id).ValueGeneratedOnAdd();
+            }
     }
 }

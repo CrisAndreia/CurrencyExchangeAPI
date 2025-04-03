@@ -23,28 +23,28 @@ namespace CurrencyExchangeAPI.Services
             return await _walletRepository.GetByIdAsync(id);
         }
 
-        // To create wallets with multiple balances
+        // 
         public async Task<Wallet> CreateWalletAsync(WalletDto walletDto)
         {
             var wallet = new Wallet
             {
                 UserId = walletDto.UserId,
-                Balances = new List<WalletBalance>()
+                Balance = walletDto.Balance//new List<WalletBalance>()
             };
 
-            foreach (var balanceDto in walletDto.Balances)
+            /*foreach (var balanceDto in walletDto.Balance)
             {
                 wallet.Balances.Add(new WalletBalance
                 {
                     Currency = balanceDto.Currency,
                     Balance = balanceDto.Balance
                 });
-            }
+            }*/
             return await _walletRepository.CreateAsync(wallet);
         }
         
         // Adding balance to an existing wallet
-        public async Task<WalletBalance> AddBalanceToWalletAsync(int walletId, WalletBalanceDto balanceDto)
+        /*public async Task<WalletBalance> AddBalanceToWalletAsync(int walletId, WalletBalanceDto balanceDto)
         {
             var wallet = await _walletRepository.GetByIdAsync(walletId);
             if (wallet == null)
@@ -141,7 +141,7 @@ namespace CurrencyExchangeAPI.Services
                 Currency = balance.Currency,
                 Balance = balance.Balance
             });
-        }
+        }*/
 
     }
 }

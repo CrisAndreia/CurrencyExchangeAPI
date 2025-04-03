@@ -13,6 +13,7 @@ using CurrencyExchangeAPI.Data;
 using Microsoft.OpenApi.Models;
 using CurrencyExchangeAPI.Services;
 using CurrencyExchangeAPI.Repositories;
+using Quartz;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,9 +26,26 @@ builder.Services.AddScoped<IExchangeRateRepository, ExchangeRateRepository>();
 builder.Services.AddScoped<IExchangeRateService, ExchangeRateService>();
 builder.Services.AddScoped<IWalletRepository, WalletRepository>();
 builder.Services.AddScoped<IWalletService, WalletService>();
+builder.Services.AddHttpClient();
+builder.Services.AddScoped<IECBService, ECBService>();
+builder.Services.AddQuartz(q =>
+{
+    var jobKey = new JobKey("RateUpdateJob");
+    q.AddJob<RateUpdateJob>(opts => opts.WithIdentity(jobKey));
+    
+    q.AddTrigger(opts => opts
+        .ForJob(jobKey)
+        .WithIdentity("RateUpdateJob-trigger")
+        .WithSimpleSchedule(x => x
+            .WithIntervalInMinutes(1)
+            .RepeatForever()));
+});
+
+builder.Services.AddQuartzHostedService();
 
 // HttpClient
-builder.Services.AddHttpClient<IExchangeRateService, ExchangeRateService>();
+//builder.Services.AddHttpClient<IExchangeRateService, ExchangeRateService>();
+builder.Services.AddHttpClient<IECBService, ECBService>();
 
 // Adding necessary services
 builder.Services.AddControllers()

@@ -4,7 +4,9 @@ using CurrencyExchangeAPI.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CurrencyExchangeAPI.Dto;
+using CurrencyExchangeAPI.Data;
 using System;
+using System.Linq;
 
 namespace CurrencyExchangeAPI.Controllers
 {
@@ -13,13 +15,149 @@ namespace CurrencyExchangeAPI.Controllers
     public class WalletController : ControllerBase
     {
         private readonly IWalletService _walletService;
+        private readonly ApplicationDbContext _context;
+        private readonly IECBService _ecbService;
 
-        public WalletController(IWalletService walletService)
+        public WalletController(IWalletService walletService, ApplicationDbContext context, IECBService ecbService)
         {
             _walletService = walletService;
+            _context = context;
+            _ecbService = ecbService;
         }
-        //Creates a new wallet
+
         [HttpPost]
+        public async Task<ActionResult<Wallet>> CreateWallet([FromBody] CreateWalletRequest request)
+        {
+            var wallet = new Wallet
+            {
+                UserId = request.UserId,
+                Balance = request.InitialBalance,
+                Currency = request.Currency
+            };
+
+            _context.Wallets.Add(wallet);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetWallet), new { walletId = wallet.Id }, wallet);
+        }
+
+        [HttpGet("{walletId}")]
+        public async Task<ActionResult<WalletResponse>> GetWallet(long walletId, [FromQuery] string currency = null)
+        {
+            var wallet = await _context.Wallets.FindAsync(walletId);
+            if (wallet == null)
+            {
+                return NotFound();
+            }
+
+            if (string.IsNullOrEmpty(currency) || currency == wallet.Currency)
+            {
+                return new WalletResponse
+                {
+                    Id = wallet.Id,
+                    Balance = wallet.Balance,
+                    Currency = wallet.Currency
+                };
+            }
+
+            // Convert to requested currency
+            var rates = await _ecbService.GetLatestRatesAsync();
+            var fromRate = rates.FirstOrDefault(r => r.BaseCurrency == wallet.Currency);
+            var toRate = rates.FirstOrDefault(r => r.BaseCurrency == currency);
+
+            if (fromRate == null || toRate == null)
+            {
+                return BadRequest("Unsupported currency conversion");
+            }
+
+            var convertedAmount = wallet.Balance * (toRate.Rate / fromRate.Rate);
+
+            return new WalletResponse
+            {
+                Id = wallet.Id,
+                Balance = Math.Round(convertedAmount, 2),
+                Currency = currency
+            };
+        }
+
+        [HttpPost("{walletId}/adjustbalance")]
+        public async Task<ActionResult<Wallet>> AdjustBalance(
+            long walletId,
+            [FromQuery] decimal amount,
+            [FromQuery] string currency,
+            [FromQuery] string strategy)
+        {
+            if (amount <= 0)
+            {
+                return BadRequest("Amount must be positive");
+            }
+
+            var wallet = await _context.Wallets.FindAsync(walletId);
+            if (wallet == null)
+            {
+                return NotFound();
+            }
+
+            decimal amountInWalletCurrency = amount;
+            
+            // Convert amount to wallet currency if needed
+            if (!string.IsNullOrEmpty(currency) && currency != wallet.Currency)
+            {
+                var rates = await _ecbService.GetLatestRatesAsync();
+                var fromRate = rates.FirstOrDefault(r => r.BaseCurrency == currency);
+                var toRate = rates.FirstOrDefault(r => r.BaseCurrency == wallet.Currency);
+
+                if (fromRate == null || toRate == null)
+                {
+                    return BadRequest("Unsupported currency conversion");
+                }
+
+                amountInWalletCurrency = amount * (toRate.Rate / fromRate.Rate);
+            }
+
+            switch (strategy.ToLower())
+            {
+                case "addfundsstrategy":
+                    wallet.Balance += amountInWalletCurrency;
+                    break;
+                    
+                case "subtractfundsstrategy":
+                    if (wallet.Balance < amountInWalletCurrency)
+                    {
+                        return BadRequest("Insufficient funds");
+                    }
+                    wallet.Balance -= amountInWalletCurrency;
+                    break;
+                    
+                case "forcesubtractfundsstrategy":
+                    wallet.Balance -= amountInWalletCurrency;
+                    break;
+                    
+                default:
+                    return BadRequest("Invalid strategy");
+            }
+
+            await _context.SaveChangesAsync();
+            return wallet;
+        }
+    }
+
+    public class CreateWalletRequest
+    {
+        public string UserId { get; set; }
+        public decimal InitialBalance { get; set; }
+        public string Currency { get; set; }
+    }
+
+    public class WalletResponse
+    {
+        public long Id { get; set; }
+        public decimal Balance { get; set; }
+        public string Currency { get; set; }
+    }
+}
+        //Creates a new wallet
+       /* [HttpPost]
         public async Task<IActionResult> CreateWallet([FromBody] WalletDto walletDto)
         {
             var wallet = await _walletService.CreateWalletAsync(walletDto);
@@ -116,6 +254,6 @@ namespace CurrencyExchangeAPI.Controllers
         {
             var balance = await _walletService.GetBalanceByCurrencyAsync(walletId, currency);
             return balance != null ? Ok(balance) : NotFound("Saldo para esta moeda não encontrado.");
-        }*/
+        }
     }
-}
+}*/

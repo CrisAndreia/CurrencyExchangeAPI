@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/crisrodrigues/CurrencyExchangeAPI/CurrencyExchangeAPI.csproj": {}
+    "/Users/crisrodrigues/Novibet/CurrencyExchangeAPI/CurrencyExchangeAPI/CurrencyExchangeAPI.csproj": {}
   },
   "projects": {
-    "/Users/crisrodrigues/CurrencyExchangeAPI/CurrencyExchangeAPI.csproj": {
+    "/Users/crisrodrigues/Novibet/CurrencyExchangeAPI/CurrencyExchangeAPI/CurrencyExchangeAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/crisrodrigues/CurrencyExchangeAPI/CurrencyExchangeAPI.csproj",
+        "projectUniqueName": "/Users/crisrodrigues/Novibet/CurrencyExchangeAPI/CurrencyExchangeAPI/CurrencyExchangeAPI.csproj",
         "projectName": "CurrencyExchangeAPI",
-        "projectPath": "/Users/crisrodrigues/CurrencyExchangeAPI/CurrencyExchangeAPI.csproj",
+        "projectPath": "/Users/crisrodrigues/Novibet/CurrencyExchangeAPI/CurrencyExchangeAPI/CurrencyExchangeAPI.csproj",
         "packagesPath": "/Users/crisrodrigues/.nuget/packages/",
-        "outputPath": "/Users/crisrodrigues/CurrencyExchangeAPI/obj/",
+        "outputPath": "/Users/crisrodrigues/Novibet/CurrencyExchangeAPI/CurrencyExchangeAPI/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/crisrodrigues/.nuget/NuGet/NuGet.Config"
@@ -57,13 +57,29 @@
               "target": "Package",
               "version": "[9.0.3, )"
             },
+            "Microsoft.Extensions.Http": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
             },
+            "Quartz": {
+              "target": "Package",
+              "version": "[3.14.0, )"
+            },
+            "Quartz.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[3.14.0, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[5.6.3, )"
+            },
+            "System.ServiceModel.Syndication": {
+              "target": "Package",
+              "version": "[9.0.3, )"
             }
           },
           "imports": [

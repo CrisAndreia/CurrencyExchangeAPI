@@ -44,12 +44,17 @@ namespace CurrencyExchangeAPI.Migrations
 
             modelBuilder.Entity("CurrencyExchangeAPI.Models.Wallet", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Currency")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -73,7 +78,7 @@ namespace CurrencyExchangeAPI.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("WalletId")
+                    b.Property<long>("WalletId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");

@@ -8,11 +8,17 @@ namespace CurrencyExchangeAPI.Models
 {
     public class Wallet
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
 
-        [Required]
+        //[Required]
         public string UserId { get; set; }
 
-        public List<WalletBalance> Balances { get; set; } = new List<WalletBalance>();
+        //[Required]
+        public decimal Balance { get; set; }
+        
+        //[Required]
+        public string Currency { get; set; }
+
+        //public List<WalletBalance> Balances { get; set; } = new List<WalletBalance>();
     }
 }

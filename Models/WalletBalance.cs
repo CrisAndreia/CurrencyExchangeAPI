@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -12,7 +12,7 @@ namespace CurrencyExchangeAPI.Models
 
         [Required]
         [ForeignKey("Wallet")]
-        public int WalletId { get; set; }
+        public long WalletId { get; set; }
         
         //Related to Wallet
         public Wallet Wallet { get; set; }
@@ -25,4 +25,4 @@ namespace CurrencyExchangeAPI.Models
 
         public DateTime CreateAt { get; set; } = DateTime.UtcNow;
     }
-}
+}*/
