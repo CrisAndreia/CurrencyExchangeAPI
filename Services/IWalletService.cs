@@ -8,6 +8,5 @@ namespace CurrencyExchangeAPI.Services
     {
         Task<Wallet> CreateWalletAsync(WalletDto walletCreateDTO);
         Task<Wallet> GetWalletByIdAsync(int id);
-
     }
 }
